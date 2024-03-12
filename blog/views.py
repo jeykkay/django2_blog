@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from taggit.models import Tag
 
@@ -46,3 +47,9 @@ def post_by_tag(request, tag_slug):
     tag = Tag.objects.get(slug=tag_slug)
     posts = Post.objects.filter(tagged_items__tag_id__in=[tag.id])
     return render(request, 'posts_by_tag.html', {'posts': posts, 'tag': tag})
+
+
+def author_posts(request, author_id):
+    author = User.objects.get(id=author_id)
+    posts = Post.objects.filter(author=author)
+    return render(request, 'author_posts.html', {'author': author, 'posts': posts})
