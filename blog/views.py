@@ -53,3 +53,13 @@ def author_posts(request, author_id):
     author = User.objects.get(id=author_id)
     posts = Post.objects.filter(author=author)
     return render(request, 'author_posts.html', {'author': author, 'posts': posts})
+
+
+def edit_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    form = PostForm(request.POST or None, instance=post)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    return render(request, 'edit_post.html', {'form': form})
