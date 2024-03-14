@@ -62,4 +62,4 @@ def edit_post(request, post_id):
         if form.is_valid():
             form.save()
             return redirect('post_list')
-    return render(request, 'edit_post.html', {'form': form})
+    return render(request, 'edit_posts.html', {'form': form, 'post': post})
